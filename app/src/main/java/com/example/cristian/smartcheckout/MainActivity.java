@@ -54,8 +54,9 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainActivity.this, ShoppingActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.start_shopping) {
             Intent i = new Intent(MainActivity.this, ShoppingActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.add_preferences) {
 
         }  else if (id == R.id.logout) {

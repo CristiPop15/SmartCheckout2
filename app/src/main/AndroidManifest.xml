@@ -40,8 +40,10 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".ShoppingActivity" />
-        <activity android:name=".ShowItems"></activity>
+        <activity android:name=".ShoppingActivity"
+            android:label="Scanati codul QR"/>
+        <activity android:name=".ShowItems" />
+        <activity android:name=".ProductScan"></activity>
     </application>
 
 </manifest>

@@ -80,8 +80,8 @@ public class ShoppingActivity extends AppCompatActivity implements QRCodeReaderV
     public void onQRCodeRead(String text, PointF[] points) {
         onPause();
 
-        Intent i = this.getIntent();
-        int action = i.getExtras().getInt("action");
+//        Intent i = this.getIntent();
+//        int action = i.getExtras().getInt("action");
 
 
         try {

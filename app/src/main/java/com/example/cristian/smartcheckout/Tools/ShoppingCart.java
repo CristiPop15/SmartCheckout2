@@ -12,7 +12,7 @@ import java.util.List;
 public class ShoppingCart {
 
 
-    private List<Product> mProducts;
+    private List<Row> mProducts;
     private int total_number_of_products = 0;
     private double cart_weight = 0, total_weight = 0, total = 0;
 
@@ -42,21 +42,30 @@ public class ShoppingCart {
     }
 
     public void addProduct(Product product){
-        mProducts.add(product);
-        total_weight += product.weight;
-        total += product.price;
-        total_number_of_products++;
 
-        Log.e("MainActivity", "Product added to cart --- "+product.toString());
+        for(int i = 0; i<=mProducts.size()-1; i++) {
+            Log.e("MainActivity", "for");
+            if (mProducts.get(i).product.id == product.id) {
+                mProducts.get(i).p.add(product);
+                refresh();
+                Log.e("MainActivity", "another Product added to cart --- " + product.toString());
+                return;
+            }
+        }
+
+        Row newRow = new Row();
+        newRow.product = product;
+        newRow.p.add(product);
+        mProducts.add(newRow);
+
+        refresh();
+        Log.e("MainActivity", "new Product added to cart --- "+product.toString());
     }
 
     public void removeProduct(int position){
-        total_weight -= mProducts.get(position).weight;
-        total -= mProducts.get(position).price;
 
         mProducts.remove(position);
-        total_number_of_products--;
-
+        refresh();
 
         Log.e("MainActivity", "Product removed from cart --- at position "+position);
 
@@ -73,7 +82,7 @@ public class ShoppingCart {
         cart_weight = 0;
     }
 
-    public List<Product> getProducts(){
+    public List<Row> getProducts(){
         return mProducts;
     }
 
@@ -81,8 +90,39 @@ public class ShoppingCart {
         return total_number_of_products;
     }
 
-    public Product getProduct(int position){
+    public Row getProduct(int position){
         return mProducts.get(position);
+    }
+
+    public void removeOneProduct(Product p){
+
+        for(int i = 0; i<=mProducts.size()-1; i++) {
+            Log.e("MainActivity", "for");
+            if (mProducts.get(i).product.id == p.id) {
+                mProducts.get(i).p.remove(0);
+                refresh();
+                Log.e("MainActivity", "another Product removed from cart --- ");
+                return;
+            }
+        }
+
+    }
+
+    private void refresh(){
+        total = 0;
+        total_number_of_products = 0;
+        total_weight = 0;
+
+        for(int i = 0; i <= mProducts.size()-1; i++){
+            total += mProducts.get(i).getSum();
+            total_number_of_products += mProducts.get(i).getNumOfItems();
+            total_weight += mProducts.get(i).getTotalWeight();
+
+            if(mProducts.get(i).p.size() < 1){
+                mProducts.remove(i);
+
+            }
+        }
     }
 
 }
